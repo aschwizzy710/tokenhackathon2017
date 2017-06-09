@@ -65,6 +65,9 @@ function onCommand(session, command) {
     case 'help': // Get help 
       help(session)
       break
+    case 'excuse': // coz one excuse isn't enough
+      excuse(session)
+      break
   }
 }
 
@@ -115,12 +118,12 @@ function onPayment(session, message) {
 // Welcome message 
 
 function welcome(session, username) {
-  sendMessage(session, `Hello ` + username + `, I am TreeBot, your reforestation friend. Tap “fund” to donate money towards planting a tree. Tap “plant” to earn money planting trees. Tap “verify” to help verify grown trees. To learn more about me and my mission, tap “about`)
+  sendMessage(session, `Hello ` + username + `, I am TreeBot, your reforestation friend. Tap “fund” to donate money towards planting a tree. Tap “plant” to earn money planting trees. Tap “verify” to help verify grown trees. To learn more about me and my mission, tap “about"`)
 }
 
 // example of how to store state on each user
 
-function verifyexcuse(session) {
+function excuse(session) {
 
   sendMessage(session, `Our verification process is done using geolocation and QR codes! Geolocation is not yet available in the Token app, so stay tuned!`)
 }
@@ -149,7 +152,7 @@ function plant(session) {
   //plantMessage(session, `Please scan your seedling QR code to get information about where to plant it. You will be paid $1 upon verification that you have planted your seedling!`)
   session.reply(`I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
   session.reply(`It should be planted at this location *Geolocation*`)
-  session.reply(`Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
+  sendMessage(session, `Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
 }
 
 function about(session) {
@@ -191,9 +194,8 @@ function sendMessage(session, message) {
 
 function verifyMessage(session, message) {
   let controls = [
-    { type: 'button', label: 'Yes ✔️', value: 'verifyexcuse' },
+    { type: 'button', label: 'Yes ✔️', value: 'excuse' },
     { type: 'button', label: 'No ❌', value: 'about' }
-    //{ type: 'button', label: 'Help❓', value: 'help' }
   ]
   session.reply(SOFA.Message({
     body: message,
