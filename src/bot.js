@@ -123,7 +123,7 @@ function welcome(session, username) {
 function verifyexcuse(session) {
 
   sendMessage(session, `Our verification process is done using geolocation and QR codes! Geolocation is not yet available in the Token app, so stay tuned!`)
-
+}
   /* Send a tree image to the user
 
   SOFA.Message({
@@ -137,7 +137,6 @@ function verifyexcuse(session) {
   //   let verify = (session.get('verify') || 0) + 1
   //   session.set('verify', verify)
   //   sendMessage(session, `${verify}`)
-}
 
 function fund(session) {
   // request $1 USD at current exchange rates
@@ -158,7 +157,7 @@ function about(session) {
 }
 
 function scan(session, message) {
-  session.reply('This feature is currently under development. Please enter the code 12345 instead (it\'s much easier 😉)')
+  sendMessage(session, `This feature is currently under development. Please enter the code 12345 instead (it\'s much easier 😉)`)
   const foo = 12345
 
   // get the reply message and match it with foo
