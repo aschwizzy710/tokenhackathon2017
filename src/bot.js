@@ -72,11 +72,6 @@ function welcome(session) {
   sendMessage(session, `Yo Dude!`)
 }
 
-function treePlanter(session) {
-  sendMessage(session, `Please give me your seedlings unique ID`)
-  
-}
-
 // example of how to store state on each user
 function count(session) {
   let count = (session.get('count') || 0) + 1
@@ -106,4 +101,9 @@ function sendMessage(session, message) {
     controls: controls,
     showKeyboard: false,
   }))
+}
+
+function treePlanter(session) {
+  sendMessage(session, `Please give me your seedlings unique ID`)
+
 }
