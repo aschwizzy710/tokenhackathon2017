@@ -157,7 +157,7 @@ function plant(session) {
 }
 
 function about(session) {
-  sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place. Made with ❤️ by the Blockchain Education Network.`)
+  sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place. /n Made with ❤️ by the Blockchain Education Network.`)
 }
 
 function scan(session, message) {
