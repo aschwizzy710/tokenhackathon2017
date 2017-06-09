@@ -122,7 +122,7 @@ function welcome(session, username) {
 
 function verify(session) {
 
-  sendMessage(session, `We see verification as being a way for people with very limited access to livelihoods to be able to earn. Its coming and though the hackathon ends, the work continues!`)
+  sendMessage(session, `Our verification process is done using geolocation and QR codes! Geolocation is not yet available in the Token app, so stay tuned!`)
 
   /* Send a tree image to the user
 
