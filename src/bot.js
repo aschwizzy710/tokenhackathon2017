@@ -6,7 +6,8 @@ let bot = new Bot()
 
 // ROUTING
 
-bot.onEvent = function(session, message) {
+bot.onEvent = function (session, message) {
+
   switch (message.type) {
     case 'Init':
       welcome(session)
@@ -27,22 +28,36 @@ bot.onEvent = function(session, message) {
 }
 
 function onMessage(session, message) {
-  welcome(session)
+  var username = session.user.username // logs username 
+  welcome(session, username)
 }
+
+// takes command from the button
 
 function onCommand(session, command) {
   switch (command.content.value) {
-    case 'treePlanter':
-      treePlanter(session)
+    case 'plant': // plant a tree   
+      plant(session)
       break
-    case 'count':
-      count(session)
+    case 'verify': // verify a tree
+      verify(session)
       break
-    case 'donate':
-      donate(session)
+    case 'fund': // fund a tree 
+      fund(session)
       break
-    }
+    case 'about': // Learn more about the Treebot
+      about(session)
+      break
+    case 'scan': // Scan QR code (not functional)
+      scan(session)
+      break
+    case 'help': // Get help 
+      help(session)
+      break
+  }
 }
+
+// takes care of payment
 
 function onPayment(session, message) {
   if (message.fromAddress == session.config.paymentAddress) {
@@ -68,42 +83,123 @@ function onPayment(session, message) {
 
 // STATES
 
-function welcome(session) {
-  sendMessage(session, `Yo Dude!`)
+// Welcome message 
+
+function welcome(session, username) {
+  sendMessage(session, `Hello ` + username + `, I am TreeBot, your reforestation friend. Tap “fund” to donate money towards planting a tree. Tap “plant” to earn money planting trees. Tap “verify” to help verify grown trees. To learn more about me and my mission, tap “about`)
 }
 
 // example of how to store state on each user
-function count(session) {
-  let count = (session.get('count') || 0) + 1
-  session.set('count', count)
-  sendMessage(session, `${count}`)
+
+function verify(session) {
+
+  verifyMessage('For every image you verify, you will be compensated $0.1, i.e., 10 cents! Would you like to proceed?')
+  
+ /* Send a tree image to the user*/
+
+//   SOFA.Message({
+// 	body: "Here you go...",
+//  	attachments: [{
+//   	"type": "image",
+//    	"url": "farmer(1).jpg"
+//   }]
+// })
+
+  let verify = (session.get('verify') || 0) + 1
+  session.set('verify', verify)
+  sendMessage(session, `${verify}`)
 }
 
-function donate(session) {
+function fund(session) { 
   // request $1 USD at current exchange rates
-  sendMessage(session, `I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
+  fundMessage(session, `For $3 you can fund the growth of one seedling! It only costs $150 to grow a small forest. Please select an amount below to fund.`)
+  
+  // NEEDS CODE - Request money from user with options
+}
+
+
+function plant(session) {
+  plantMessage(session, `Please scan your seedling QR code to get information about where to plant it. You will be paid $1 upon verification that you have planted your seedling!`)
+ /* sendMessage(session, `I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
   sendMessage(session, `It should be planted at this location *Geolocation*`)
   sendMessage(session, `Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
+*/
 }
+
+function about(session) {
+  sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place.`)
+}
+
+function scan(session) {
+    session.reply('This feature is currently under development. Please enter the code 12345')
+    const foo = 12345
+
+    // get the reply message and match it with foo
+
+}
+
+function help(session) {
+ session.reply('I will help you soon')
+}
+
 
 // HELPERS
 
-
-
+// Generic message with 4 options: Plant, Verify, Fund, and About
 function sendMessage(session, message) {
   let controls = [
-    {type: 'button', label: 'Tree Planter', value: 'treePlanter'},
-    {type: 'button', label: 'Tree Verifier', value: 'count'},
-    {type: 'button', label: 'Tree Funder', value: 'donate'}
+    { type: 'button', label: 'Plant 🌲', value: 'plant' },
+    { type: 'button', label: 'Verify ✔️', value: 'verify' },
+    { type: 'button', label: 'Fund 💰', value: 'fund' },
+    { type: 'button', label: 'About', value: 'about' },
   ]
   session.reply(SOFA.Message({
     body: message,
     controls: controls,
-    showKeyboard: false,
+    showKeyboard: true,
   }))
 }
 
-function treePlanter(session) {
-  sendMessage(session, `Please give me your seedlings unique ID`)
+// Verify messsage shows three buttons - Yes, No and Help 
 
+function verifyMessage(session, message) {
+  let controls = [
+    { type: 'button', label: 'Yes ✔️', value: 'yes' },
+    { type: 'button', label: 'No ❌', value: 'no' },
+    { type: 'button', label: 'Help❓', value: 'help' }
+  ]
+  session.reply(SOFA.Message({
+    body: message,
+    controls: controls,
+    showKeyboard: true,
+  }))
 }
+
+// Plant message shows two options - Scan QR code and Help 
+
+function plantMessage(session, message) {
+  let controls = [
+    { type: 'button', label: 'Scan QR code 📷', value: 'scan' },
+    { type: 'button', label: 'Help❓', value: 'help' }
+  ]
+  session.reply(SOFA.Message({
+    body: message,
+    controls: controls,
+    showKeyboard: true,
+  }))
+}
+
+function fundMessage(session, message) {
+  let controls = [
+    { type: 'button', label: 'Scan QR code 📷', value: 'scan' },
+    { type: 'button', label: 'Help ❓', value: 'planthelp' }
+  ]
+  session.reply(SOFA.Message({
+    body: message,
+    controls: controls,
+    showKeyboard: true,
+  }))
+}
+
+
+
