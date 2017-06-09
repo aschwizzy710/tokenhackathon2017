@@ -167,7 +167,7 @@ function scan(session, message) {
 }
 
 function help(session) {
-  session.reply('I will help you soon')
+  session.reply('We are currently out of seedlings to fund! Stay tuned for the next batch so you too can play a part in reforestation.')
 }
 
 
@@ -220,8 +220,8 @@ function plantMessage(session, message) {
 
 function fundMessage(session, message) {
   let controls = [
-    { type: 'button', label: '$3', value: 'paymentRequest' },
-    { type: 'button', label: '$150', value: 'paymentRequest' },
+    { type: 'button', label: '$3', value: 'help' },
+    { type: 'button', label: '$150', value: 'help' },
     { type: 'button', label: 'Exit 🚪', value: 'about' }
   ]
   session.reply(SOFA.Message({
