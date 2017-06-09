@@ -120,7 +120,7 @@ function welcome(session, username) {
 
 // example of how to store state on each user
 
-function verify(session) {
+function verifyexcuse(session) {
 
   sendMessage(session, `Our verification process is done using geolocation and QR codes! Geolocation is not yet available in the Token app, so stay tuned!`)
 
@@ -169,7 +169,7 @@ function scan(session, message) {
 }
 
 function help(session) {
-  session.reply('We are currently out of seedlings to fund! Stay tuned for the next batch so you too can play a part in reforestation.')
+  sendmessage(session, `We are currently out of seedlings to fund! Stay tuned for the next batch so you too can play a part in reforestation.`)
 }
 
 
@@ -195,7 +195,7 @@ function sendMessage(session, message) {
 
 function verifyMessage(session, message) {
   let controls = [
-    { type: 'button', label: 'Yes ✔️', value: 'verify' },
+    { type: 'button', label: 'Yes ✔️', value: 'verifyexcuse' },
     { type: 'button', label: 'No ❌', value: 'about' }
     //{ type: 'button', label: 'Help❓', value: 'help' }
   ]
