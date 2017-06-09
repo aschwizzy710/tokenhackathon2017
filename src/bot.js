@@ -151,9 +151,6 @@ function plant(session) {
   session.reply(`I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
   session.reply(`It should be planted at this location *Geolocation*`)
   session.reply(`Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
-
-
-
 }
 
 function about(session) {
@@ -169,7 +166,7 @@ function scan(session, message) {
 }
 
 function help(session) {
-  sendmessage(session, `We are currently out of seedlings to fund! Stay tuned for the next batch so you too can play a part in reforestation.`)
+  sendMessage(session, `We are currently out of seedlings to fund! Stay tuned for the next batch so you too can play a part in reforestation.`)
 }
 
 
