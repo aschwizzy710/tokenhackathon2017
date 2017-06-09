@@ -93,113 +93,110 @@ function welcome(session, username) {
 
 function verify(session) {
 
-  verifyMessage('For every image you verify, you will be compensated $0.1, i.e., 10 cents! Would you like to proceed?')
-  
- /* Send a tree image to the user*/
+  verifyMessage(session, 'For every image you verify, you will be compensated $0.1, i.e., 10 cents! Would you like to proceed?')
 
-//   SOFA.Message({
-// 	body: "Here you go...",
-//  	attachments: [{
-//   	"type": "image",
-//    	"url": "farmer(1).jpg"
-//   }]
-// })
+  /* Send a tree image to the user*/
 
-  let verify = (session.get('verify') || 0) + 1
-  session.set('verify', verify)
-  sendMessage(session, `${verify}`)
-}
+  SOFA.Message({
+    body: "Here you go...",
+    attachments: [{
+      "type": "image",
+      "url": "farmer(1).jpg"
+    }]
+  })
 
-function fund(session) { 
-  // request $1 USD at current exchange rates
-  fundMessage(session, `For $3 you can fund the growth of one seedling! It only costs $150 to grow a small forest. Please select an amount below to fund.`)
-  
-  // NEEDS CODE - Request money from user with options
-}
+  //   let verify = (session.get('verify') || 0) + 1
+  //   session.set('verify', verify)
+  //   sendMessage(session, `${verify}`)
+  // }
+
+  function fund(session) {
+    // request $1 USD at current exchange rates
+    fundMessage(session, `For $3 you can fund the growth of one seedling! It only costs $150 to grow a small forest. Please select an amount below to fund.`)
+
+    // NEEDS CODE - Request money from user with options
+  }
 
 
-function plant(session) {
-  plantMessage(session, `Please scan your seedling QR code to get information about where to plant it. You will be paid $1 upon verification that you have planted your seedling!`)
- /* sendMessage(session, `I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
-  sendMessage(session, `It should be planted at this location *Geolocation*`)
-  sendMessage(session, `Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
-*/
-}
+  function plant(session) {
+    plantMessage(session, `Please scan your seedling QR code to get information about where to plant it. You will be paid $1 upon verification that you have planted your seedling!`)
+    /* sendMessage(session, `I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
+     sendMessage(session, `It should be planted at this location *Geolocation*`)
+     sendMessage(session, `Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
+   */
+  }
 
-function about(session) {
-  sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place.`)
-}
+  function about(session) {
+    sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place.`)
+  }
 
-function scan(session) {
+  function scan(session) {
     session.reply('This feature is currently under development. Please enter the code 12345')
     const foo = 12345
 
     // get the reply message and match it with foo
 
-}
+  }
 
-function help(session) {
- session.reply('I will help you soon')
-}
-
-
-// HELPERS
-
-// Generic message with 4 options: Plant, Verify, Fund, and About
-function sendMessage(session, message) {
-  let controls = [
-    { type: 'button', label: 'Plant 🌲', value: 'plant' },
-    { type: 'button', label: 'Verify ✔️', value: 'verify' },
-    { type: 'button', label: 'Fund 💰', value: 'fund' },
-    { type: 'button', label: 'About', value: 'about' },
-  ]
-  session.reply(SOFA.Message({
-    body: message,
-    controls: controls,
-    showKeyboard: true,
-  }))
-}
-
-// Verify messsage shows three buttons - Yes, No and Help 
-
-function verifyMessage(session, message) {
-  let controls = [
-    { type: 'button', label: 'Yes ✔️', value: 'yes' },
-    { type: 'button', label: 'No ❌', value: 'no' },
-    { type: 'button', label: 'Help❓', value: 'help' }
-  ]
-  session.reply(SOFA.Message({
-    body: message,
-    controls: controls,
-    showKeyboard: true,
-  }))
-}
-
-// Plant message shows two options - Scan QR code and Help 
-
-function plantMessage(session, message) {
-  let controls = [
-    { type: 'button', label: 'Scan QR code 📷', value: 'scan' },
-    { type: 'button', label: 'Help❓', value: 'help' }
-  ]
-  session.reply(SOFA.Message({
-    body: message,
-    controls: controls,
-    showKeyboard: true,
-  }))
-}
-
-function fundMessage(session, message) {
-  let controls = [
-    { type: 'button', label: 'Scan QR code 📷', value: 'scan' },
-    { type: 'button', label: 'Help ❓', value: 'planthelp' }
-  ]
-  session.reply(SOFA.Message({
-    body: message,
-    controls: controls,
-    showKeyboard: true,
-  }))
-}
+  function help(session) {
+    session.reply('I will help you soon')
+  }
 
 
+  // HELPERS
 
+  // Generic message with 4 options: Plant, Verify, Fund, and About
+  function sendMessage(session, message) {
+    let controls = [
+      { type: 'button', label: 'Plant 🌲', value: 'plant' },
+      { type: 'button', label: 'Verify ✔️', value: 'verify' },
+      { type: 'button', label: 'Fund 💰', value: 'fund' },
+      { type: 'button', label: 'About', value: 'about' },
+    ]
+    session.reply(SOFA.Message({
+      body: message,
+      controls: controls,
+      showKeyboard: true,
+    }))
+  }
+
+  // Verify messsage shows three buttons - Yes, No and Help 
+
+  function verifyMessage(session, message) {
+    let controls = [
+      { type: 'button', label: 'Yes ✔️', value: 'yes' },
+      { type: 'button', label: 'No ❌', value: 'no' },
+      { type: 'button', label: 'Help❓', value: 'help' }
+    ]
+    session.reply(SOFA.Message({
+      body: message,
+      controls: controls,
+      showKeyboard: true,
+    }))
+  }
+
+  // Plant message shows two options - Scan QR code and Help 
+
+  function plantMessage(session, message) {
+    let controls = [
+      { type: 'button', label: 'Scan QR code 📷', value: 'scan' },
+      { type: 'button', label: 'Help❓', value: 'help' }
+    ]
+    session.reply(SOFA.Message({
+      body: message,
+      controls: controls,
+      showKeyboard: true,
+    }))
+  }
+
+  function fundMessage(session, message) {
+    let controls = [
+      { type: 'button', label: 'Scan QR code 📷', value: 'scan' },
+      { type: 'button', label: 'Help ❓', value: 'planthelp' }
+    ]
+    session.reply(SOFA.Message({
+      body: message,
+      controls: controls,
+      showKeyboard: true,
+    }))
+}}
