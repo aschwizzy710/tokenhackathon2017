@@ -18,6 +18,9 @@ bot.onEvent = function(session, message) {
   }
 }
 
+function onMessage(session, message) {
+  session.reply("Hello Dude!")
+}
 
 function onMessage(session, message) {
   //if message body contains the word beg, request a payment

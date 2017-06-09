@@ -32,8 +32,8 @@ function onMessage(session, message) {
 
 function onCommand(session, command) {
   switch (command.content.value) {
-    case 'ping':
-      pong(session)
+    case 'treePlanter':
+      treePlanter(session)
       break
     case 'count':
       count(session)
@@ -69,11 +69,12 @@ function onPayment(session, message) {
 // STATES
 
 function welcome(session) {
-  sendMessage(session, `Hello Token!`)
+  sendMessage(session, `Yo Dude!`)
 }
 
-function pong(session) {
-  sendMessage(session, `Pong`)
+function treePlanter(session) {
+  sendMessage(session, `Please give me your seedlings unique ID`)
+  
 }
 
 // example of how to store state on each user
@@ -85,18 +86,20 @@ function count(session) {
 
 function donate(session) {
   // request $1 USD at current exchange rates
-  Fiat.fetch().then((toEth) => {
-    session.requestEth(toEth.USD(1))
-  })
+  sendMessage(session, `I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
+  sendMessage(session, `It should be planted at this location *Geolocation*`)
+  sendMessage(session, `Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
 }
 
 // HELPERS
 
+
+
 function sendMessage(session, message) {
   let controls = [
-    {type: 'button', label: 'Ping', value: 'ping'},
-    {type: 'button', label: 'Count', value: 'count'},
-    {type: 'button', label: 'Donate', value: 'donate'}
+    {type: 'button', label: 'Tree Planter', value: 'treePlanter'},
+    {type: 'button', label: 'Tree Verifier', value: 'count'},
+    {type: 'button', label: 'Tree Funder', value: 'donate'}
   ]
   session.reply(SOFA.Message({
     body: message,
