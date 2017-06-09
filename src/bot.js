@@ -194,7 +194,7 @@ function sendMessage(session, message) {
 function verifyMessage(session, message) {
   let controls = [
     { type: 'button', label: 'Yes ✔️', value: 'verify' },
-    { type: 'button', label: 'No ❌', value: 'welcome' }
+    { type: 'button', label: 'No ❌', value: 'about' }
     //{ type: 'button', label: 'Help❓', value: 'help' }
   ]
   session.reply(SOFA.Message({
