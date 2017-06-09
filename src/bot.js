@@ -38,7 +38,7 @@ function onMessage(session, message) {
     paymentRequest()
   }
   else {
-    welcome(session)
+    welcome(session, username)
   }
 }
 
