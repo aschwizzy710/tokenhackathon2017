@@ -122,7 +122,9 @@ function welcome(session, username) {
 
 function verify(session) {
 
-  /* Send a tree image to the user*/
+  sendMessage(session, `We see verification as being a way for people with very limited access to livelihoods to be able to earn. Its coming and though the hackathon ends, the work continues!`)
+
+  /* Send a tree image to the user
 
   SOFA.Message({
     body: "Here you go...",
@@ -130,7 +132,7 @@ function verify(session) {
       "type": "image",
       "url": "farmer(1).jpg"
     }]
-  })
+  }) */ 
 
   //   let verify = (session.get('verify') || 0) + 1
   //   session.set('verify', verify)
