@@ -65,6 +65,9 @@ function onCommand(session, command) {
     case 'help': // Get help 
       help(session)
       break
+    case 'excuse': // coz one excuse isn't enough
+      excuse(session)
+      break
   }
 }
 
@@ -115,14 +118,16 @@ function onPayment(session, message) {
 // Welcome message 
 
 function welcome(session, username) {
-  sendMessage(session, `Hello ` + username + `, I am TreeBot, your reforestation friend. Tap “fund” to donate money towards planting a tree. Tap “plant” to earn money planting trees. Tap “verify” to help verify grown trees. To learn more about me and my mission, tap “about`)
+  sendMessage(session, `Hello ` + username + `, I am TreeBot, your reforestation friend. Tap “fund” to donate money towards planting a tree. Tap “plant” to earn money planting trees. Tap “verify” to help verify grown trees. To learn more about me and my mission, tap “about"`)
 }
 
 // example of how to store state on each user
 
-function verify(session) {
+function excuse(session) {
 
-  /* Send a tree image to the user*/
+  sendMessage(session, `Our verification process is done using geolocation and QR codes! Geolocation is not yet available in the Token app, so stay tuned!`)
+}
+  /* Send a tree image to the user
 
   SOFA.Message({
     body: "Here you go...",
@@ -130,12 +135,11 @@ function verify(session) {
       "type": "image",
       "url": "farmer(1).jpg"
     }]
-  })
+  }) */ 
 
   //   let verify = (session.get('verify') || 0) + 1
   //   session.set('verify', verify)
   //   sendMessage(session, `${verify}`)
-}
 
 function fund(session) {
   // request $1 USD at current exchange rates
@@ -148,18 +152,15 @@ function plant(session) {
   //plantMessage(session, `Please scan your seedling QR code to get information about where to plant it. You will be paid $1 upon verification that you have planted your seedling!`)
   session.reply(`I will pay you $3 in 12 months for planting this Acacia Polyacantha`)
   session.reply(`It should be planted at this location *Geolocation*`)
-  session.reply(`Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
-
-
-
+  sendMessage(session, `Ok, 12 months have not passed, but for the purpose of this hackathon please send us a photo of your tree for verification`)
 }
 
 function about(session) {
-  sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place.`)
+  sendMessage(session, `I am TreeBot and my mission is to restore land destroyed by deforestation. I’m starting in Africa, where I make it simple by mobilizing local communities to protect and nurture the land through planting trees. Restoring forests is not easy! But with TreeBot and the power of borderless payments, anybody can make the world a greener place.` + `\n` +`Made with ❤️ by the Blockchain Education Network.`)
 }
 
 function scan(session, message) {
-  session.reply('This feature is currently under development. Please enter the code 12345 instead (it\'s much easier 😉)')
+  sendMessage(session, `This feature is currently under development. Please enter the code 12345 instead (it\'s much easier 😉)`)
   const foo = 12345
 
   // get the reply message and match it with foo
@@ -167,7 +168,7 @@ function scan(session, message) {
 }
 
 function help(session) {
-  session.reply('I will help you soon')
+  sendMessage(session, `We are currently out of seedlings to fund! Stay tuned for the next batch so you too can play a part in reforestation.`)
 }
 
 
@@ -193,9 +194,8 @@ function sendMessage(session, message) {
 
 function verifyMessage(session, message) {
   let controls = [
-    { type: 'button', label: 'Yes ✔️', value: 'verify' },
-    { type: 'button', label: 'No ❌', value: 'welcome' }
-    //{ type: 'button', label: 'Help❓', value: 'help' }
+    { type: 'button', label: 'Yes ✔️', value: 'excuse' },
+    { type: 'button', label: 'No ❌', value: 'about' }
   ]
   session.reply(SOFA.Message({
     body: message,
@@ -220,8 +220,8 @@ function plantMessage(session, message) {
 
 function fundMessage(session, message) {
   let controls = [
-    { type: 'button', label: '$3', value: 'paymentRequest' },
-    { type: 'button', label: '$150', value: 'paymentRequest' },
+    { type: 'button', label: '$3', value: 'help' },
+    { type: 'button', label: '$150', value: 'help' },
     { type: 'button', label: 'Exit 🚪', value: 'about' }
   ]
   session.reply(SOFA.Message({
